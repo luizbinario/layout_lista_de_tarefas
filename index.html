@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <title>Lista de Tarefas em Django</title>
+    <div class="site card">
+        <div class="card-header alert alert-secondary">
+            <center><h1>Lista de Tarefas</h1></center>
+        </div>
+        <div class="card-body">
+            <div>
+                <form method="POST">
+                    <div class="input-group mb-3">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Defina a tarefa" aria-label="Nova tarefa" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <!-- Card Tarefa -->
+                <div class="card shadow tarefa">
+                    <div class="card-header tarefa-attrs">
+                        <div class="titulo">{{tarefa.title}}</div>
+                        <div class="icones_acoes">
+                            <button class="btn btn-primary tarefa_botao" alt="Editar" data-toggle="modal" data-target="#editar_tarefa"><i class="bi bi-pencil-fill"></i></button>
+                            <button class="btn btn-danger tarefa_botao" alt="Excluir" data-toggle="modal" data-target="#excluir_tarefa"><i class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-info tarefa_botao" alt="Arquivar" data-toggle="modal" data-target="#arquivar_tarefa"><i class="bi bi-archive"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow tarefa">
+                    <div class="card-header tarefa-attrs">
+                        <div class="titulo">{{tarefa.title}}</div>
+                        <div class="icones_acoes">
+                            <button class="btn btn-primary tarefa_botao" alt="Editar" data-toggle="modal" data-target="#editar_tarefa"><i class="bi bi-pencil-fill"></i></button>
+                            <button class="btn btn-danger tarefa_botao" alt="Excluir" data-toggle="modal" data-target="#excluir_tarefa"><i class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-info tarefa_botao" alt="Arquivar" data-toggle="modal" data-target="#arquivar_tarefa"><i class="bi bi-archive"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow tarefa">
+                    <div class="card-header tarefa-attrs">
+                        <div class="titulo">{{tarefa.title}}</div>
+                        <div class="icones_acoes">
+                            <button class="btn btn-primary tarefa_botao" alt="Editar" data-toggle="modal" data-target="#editar_tarefa"><i class="bi bi-pencil-fill"></i></button>
+                            <button class="btn btn-danger tarefa_botao" alt="Excluir" data-toggle="modal" data-target="#excluir_tarefa"><i class="bi bi-trash-fill"></i></button>
+                            <button class="btn btn-info tarefa_botao" alt="Arquivar" data-toggle="modal" data-target="#arquivar_tarefa"><i class="bi bi-archive"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Tarefa - Editar -->
+                <div class="modal fade" id="editar_tarefa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar tarefa "{{tarefa.title}}"?</h5>
+                            </div>
+                            <form action="tarefa_update" method="POST">
+                                <div class="modal-body">
+                                    <b>Detalhes: </b><br>
+                                    <input type="hidden" name="id" value="tarefa">
+                                    <input type="hidden" name="titulo" value="{{tarefa.title}}">
+                                    <textarea name="tarefa" cols="49" rows="5">{{tarefa.description}}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Tarefa - Excluir -->
+                <div class="modal fade" id="excluir_tarefa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Excluir tarefa "{{tarefa.title}}"?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <b>Detalhes: </b><br>
+                                {{tarefa.description}}
+                            </div>
+                            <div class="modal-footer">
+                                <form action="tarefa_delete" method="POST">
+                                    <input type="hidden" name="id" value="tarefa">
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Tarefa - Arquivar -->
+                <div class="modal fade" id="arquivar_tarefa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Arquivar tarefa "{{tarefa.title}}"?</h5>
+                            </div>
+                            <div class="modal-body">
+                                <b>Detalhes: </b><br>
+                                {{tarefa.description}}
+                            </div>
+                            <div class="modal-footer">
+                                <form action="tarefa_archive" method="POST">
+                                    <input type="hidden" name="id" value="tarefa">
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+</html>

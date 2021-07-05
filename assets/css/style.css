@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.site {
+    width: 100%;
+    position: relative;
+    margin: 30px 30px 10px 30px;
+}
+
+.tarefa {
+    position: relative;
+    margin: 10px 0 0 0;
+}
+
+.tarefa_botao {
+    margin: 0 0 0 5px;
+}
+
+.tarefa-attrs {
+    position: relative;
+    display: flex;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+}
+
+.icones_acoes {
+    display: flex;
+    margin-left: auto;
+}
+
+.modal-excluir {
+    flex-basis: 80%;
+    display: flex;
+    align-items: center;
+}
+
+.action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.action button {
+    position: relative;
+    margin: 0 0 0 5px;
+}
+
+.clear {
+    clear: both;
+}
